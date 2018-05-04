@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogUtility", "GameLogUtility\GameLogUtility.csproj", "{88BA61F3-8C66-4A0A-A65E-875F12770E8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameLogUtility", "GameLogUtility\GameLogUtility.csproj", "{88BA61F3-8C66-4A0A-A65E-875F12770E8D}"
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "GameLogsRg", "GameLogsRg\GameLogsRg.deployproj", "{4887A95F-35C5-45D8-817D-23430AA143B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{88BA61F3-8C66-4A0A-A65E-875F12770E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88BA61F3-8C66-4A0A-A65E-875F12770E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88BA61F3-8C66-4A0A-A65E-875F12770E8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4887A95F-35C5-45D8-817D-23430AA143B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4887A95F-35C5-45D8-817D-23430AA143B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4887A95F-35C5-45D8-817D-23430AA143B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4887A95F-35C5-45D8-817D-23430AA143B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

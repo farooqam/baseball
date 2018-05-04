@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+    "parameters": {
+        "dataLakeAccountTenantId": {
+            "value": "f59645ca-7c1b-40fe-870d-96cd8328eb83"
+        },
+        "dataLakeAccountTokenUserPrincipalName": {
+            "value": "farooq_am_starbucks@hotmail.com"
+        },
+        "dataLakeAccountTokenUserDisplayName": {
+            "value": "Farooq Mahmud"
+        },
+        "gameLogsDataLakePath": {
+            "value": "events/gamelogs/{date}/{time}"
+        },
+        "streamingUnits": {
+            "value": 6
+        }
+    }
+}
