@@ -1,39 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
-using CommandLine;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Retrosheet.Utilities.GameLogUtility.CommandLine;
 
 namespace Retrosheet.Utilities.GameLogUtility
 {
     internal class Program
     {
-        private static int Main(string[] args)
+        private static void Main(string[] args)
         {
-            var result = 0;
+            if (args.Length != 1)
+            {
+                Console.WriteLine("USAGE: glu [input directory]");
+                return;
+            }
+
+            var inputDirectory = args[0];
 
             try
             {
-                result = Parser.Default
-                    .ParseArguments<ProcessGameLogOptions>(args)
-                    .MapResult(RunProcessGameLog, errors => 1);
+                MainAsync(inputDirectory).GetAwaiter().GetResult();
             }
             catch (Exception exception)
             {
-                result = 1;
                 Console.WriteLine(exception);
             }
-
-            return result;
         }
 
-        private static int RunProcessGameLog(ProcessGameLogOptions opts)
+        private static async Task  MainAsync(string inputDirectory)
         {
-            var inputFilePaths = Directory.GetFiles(opts.InputDirectory);
+            var inputFilePaths = Directory.GetFiles(inputDirectory);
             Console.WriteLine($"Found {inputFilePaths.Length} files in input directory.");
-            
+
             var gameLogFactory = new GameLogFactory(GameLogHeaders.Values);
 
             foreach (var inputFilePath in inputFilePaths)
@@ -51,7 +49,7 @@ namespace Retrosheet.Utilities.GameLogUtility
                         Console.Write($"\rProcessing {inputFilePath} ({linesRead} lines read)...");
                         linesRead++;
                     }
-                    
+
                     Console.Write(Environment.NewLine);
                     Console.WriteLine($"Finished processing {inputFilePath}");
                 }
@@ -59,8 +57,6 @@ namespace Retrosheet.Utilities.GameLogUtility
 
             Console.WriteLine("Done.");
             Console.ReadKey();
-
-            return 0;
         }
     }
 }
