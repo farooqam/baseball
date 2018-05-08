@@ -31,6 +31,14 @@ namespace Retrosheet.Utilities.GameLogUtility
                             throw new InvalidOperationException($"The property {_properties[i]} could not be added.");
                         }
                     }
+
+                    var dyno = ((dynamic) gameLog);
+                    var gameDate = dyno.game_date;
+                    var gameNumber = dyno.game_number;
+                    var homeTeam = dyno.home_team;
+
+                    var id = $"{gameDate.Substring(0, 4)}-{gameDate.Substring(4, 2)}-{gameDate.Substring(6, 2)}-{gameNumber}-{homeTeam.ToUpperInvariant()}";
+                    gameLog.TryAdd("id", id);
                 }
                 
             }
