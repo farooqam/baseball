@@ -2,7 +2,7 @@
 {
     public class GameLogHeaders
     {
-        private static readonly string[] Values =
+        public static readonly string[] Values =
         {
             "game_date",
             "game_number",
@@ -169,11 +169,6 @@
 
         private GameLogHeaders()
         {
-        }
-
-        public static string GetHeaderAsString()
-        {
-            return string.Join(',', Values);
         }
     }
 }

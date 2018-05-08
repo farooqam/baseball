@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using CommandLine;
+using Newtonsoft.Json;
 using Retrosheet.Utilities.GameLogUtility.CommandLine;
 
 namespace Retrosheet.Utilities.GameLogUtility
@@ -30,35 +33,32 @@ namespace Retrosheet.Utilities.GameLogUtility
         {
             var inputFilePaths = Directory.GetFiles(opts.InputDirectory);
             Console.WriteLine($"Found {inputFilePaths.Length} files in input directory.");
-
-            var header = GameLogHeaders.GetHeaderAsString();
+            
+            var gameLogFactory = new GameLogFactory(GameLogHeaders.Values);
 
             foreach (var inputFilePath in inputFilePaths)
             {
-                if (!Directory.Exists(opts.OutputDirectory))
+                using (var reader = new StreamReader(inputFilePath))
                 {
-                    Directory.CreateDirectory(opts.OutputDirectory);
-                }
+                    var linesRead = 0;
 
-                var outputFilePath = Path.Combine(opts.OutputDirectory, Path.GetFileName(inputFilePath));
-
-                using (var writer = new StreamWriter(outputFilePath))
-                {
-                    using (var reader = new StreamReader(inputFilePath))
+                    while (!reader.EndOfStream)
                     {
-                        writer.WriteLine(header);
+                        var line = reader.ReadLine();
+                        var gameLog = gameLogFactory.CreateGameLogFromCsv(line);
+                        var json = JsonConvert.SerializeObject(gameLog, Formatting.None);
 
-                        while (!reader.EndOfStream)
-                        {
-                            writer.WriteLine(reader.ReadLine());
-                        }
+                        Console.Write($"\rProcessing {inputFilePath} ({linesRead} lines read)...");
+                        linesRead++;
                     }
-
-                    Console.WriteLine($"Processed file copied to {outputFilePath}");
+                    
+                    Console.Write(Environment.NewLine);
+                    Console.WriteLine($"Finished processing {inputFilePath}");
                 }
             }
 
             Console.WriteLine("Done.");
+            Console.ReadKey();
 
             return 0;
         }
