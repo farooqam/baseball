@@ -34,13 +34,15 @@ namespace Retrosheet.Utilities.GameLogUtility
 
                     var dyno = ((dynamic) gameLog);
                     var gameDate = dyno.game_date;
-                    var gameNumber = dyno.game_number;
-                    var homeTeam = dyno.home_team;
-
-                    var id = $"{gameDate.Substring(0, 4)}-{gameDate.Substring(4, 2)}-{gameDate.Substring(6, 2)}-{gameNumber}-{homeTeam.ToUpperInvariant()}";
-                    gameLog.TryAdd("id", id);
+                    var gameYear = (string)gameDate.Substring(0, 4);
+                    var gameMonth = (string)gameDate.Substring(4, 2);
+                    var gameDay = (string)gameDate.Substring(6, 2);
+                    
+                    gameLog.TryAdd("game_year", short.Parse(gameYear));
+                    gameLog.TryAdd("game_month", byte.Parse(gameMonth));
+                    gameLog.TryAdd("game_day", byte.Parse(gameDay));
                 }
-                
+
             }
             
             return gameLog;
